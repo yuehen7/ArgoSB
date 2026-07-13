@@ -8,7 +8,8 @@
         "claude.com",
         "openai.com",
         "openai.com.cdn.cloudflare.net",
-        "openaiapi-site.azureedge.net"
+        "openaiapi-site.azureedge.net",
+        "ping0.cc"
       ],
       "domain_keyword": [
         "anthropic",
