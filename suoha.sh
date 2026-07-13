@@ -93,7 +93,7 @@ cat>/opt/suoha/config.json<<EOF
 		    "type": "vmess",
         	"tag": "vmess-sb",
 			"listen_port": $port,
-			"listen": "localhost",
+			"listen": "::",
 			"users": [
 				{
 					"uuid": "$uuid",
@@ -168,9 +168,9 @@ echo $domain 绑定成功
 tunneluuid=$(cut -d= -f2 argo.log)
 
 echo -e vmess链接已经生成, saas.sin.fan 可替换为CF优选IP'\n' >/opt/suoha/sb.txt
-echo 'vmess://'$(echo '{"add":"saas.sin.fan","aid":"0","host":"'$domain'","id":"'$uuid'","net":"ws","path":"'$urlpath'","port":"443","ps":"'$(echo $isp | sed -e 's/_/ /g')'","tls":"tls","type":"none","v":"2"}' | base64 -w 0) >>/opt/suoha/sb.txt
+echo 'vmess://'$(echo '{"add":"saas.sin.fan","aid":"0","host":"'$domain'","id":"'$uuid'","net":"ws","path":"'/$urlpath?ed=2048'","port":"443","ps":"'$(echo $isp | sed -e 's/_/ /g')'","tls":"tls","sni":"'$domain'","alpn":"http\/1.1","type":"none","v":"2"}' | base64 -w 0) >>/opt/suoha/sb.txt
 echo -e '\n'端口 443 可改为 2053 2083 2087 2096 8443'\n' >>/opt/suoha/sb.txt
-echo 'vmess://'$(echo '{"add":"saas.sin.fan","aid":"0","host":"'$domain'","id":"'$uuid'","net":"ws","path":"'$urlpath'","port":"80","ps":"'$(echo $isp | sed -e 's/_/ /g')'","tls":"","type":"none","v":"2"}' | base64 -w 0) >>/opt/suoha/sb.txt
+echo 'vmess://'$(echo '{"add":"saas.sin.fan","aid":"0","host":"'$domain'","id":"'$uuid'","net":"ws","path":"'/$urlpath?ed=2048'","port":"80","ps":"'$(echo $isp | sed -e 's/_/ /g')'","tls":"","type":"none","v":"2"}' | base64 -w 0) >>/opt/suoha/sb.txt
 echo -e '\n'端口 80 可改为 8080 8880 2052 2082 2086 2095'\n' >>/opt/suoha/sb.txt
 echo 注意:如果 80 8080 8880 2052 2082 2086 2095 端口无法正常使用 >>/opt/suoha/sb.txt
 echo 请前往 https://dash.cloudflare.com/ >>/opt/suoha/sb.txt
