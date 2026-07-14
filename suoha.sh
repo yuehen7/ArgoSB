@@ -189,7 +189,7 @@ cat>/opt/suoha/config.json<<EOF
 		    {
 				"type": "remote",
 				"tag": "my-rule-set",
-				"format": "binary",
+				"format": "source",
 				"url": "https://raw.githubusercontent.com/yuehen7/ArgoSB/main/my-rule-set.json"
 			}
 		]
