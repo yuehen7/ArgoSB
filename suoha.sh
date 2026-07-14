@@ -184,16 +184,16 @@ cat>/opt/suoha/config.json<<EOF
 				"rule_set": "my-rule-set",
 				"outbound": "vpn"
 			}
+		],
+		"rule_set": [
+		    {
+				"type": "remote",
+				"tag": "my-rule-set",
+				"format": "binary",
+				"url": "https://raw.githubusercontent.com/yuehen7/ArgoSB/main/my-rule-set.json"
+			}
 		]
-	},
-	"rule_set": [
-	    {
-			"type": "remote",
-			"tag": "my-rule-set",
-			"format": "binary",
-			"url": "https://raw.githubusercontent.com/yuehen7/ArgoSB/main/my-rule-set.json"
-		}
-	]
+	}
 }
 EOF
 fi
