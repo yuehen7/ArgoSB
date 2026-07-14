@@ -49,37 +49,72 @@ function installtunnel(){
 mkdir -p /opt/suoha/ >/dev/null 2>&1
 rm -rf sing-box cloudflared-linux sing-box.tar.gz
 
-case "$(uname -m)" in
-	x86_64 | x64 | amd64 )
-	curl -L https://github.com/SagerNet/sing-box/releases/download/v$sbcore/sing-box-$sbcore-linux-amd64.tar.gz -o sing-box.tar.gz
-	curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o cloudflared-linux
-	tar -xzvf sing-box.tar.gz
-	mv sing-box-$sbcore-linux-amd64 sing-box
-	;;
-	i386 | i686 )
-	curl -L https://github.com/SagerNet/sing-box/releases/download/v$sbcore/sing-box-$sbcore-linux-386.tar.gz -o sing-box.tar.gz
-	curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-386 -o cloudflared-linux
-	tar -xzvf sing-box.tar.gz
-	mv sing-box-$sbcore-linux-386 sing-box
-	;;
-	armv8 | arm64 | aarch64 )
-	echo "arm64"
-	curl -L https://github.com/SagerNet/sing-box/releases/download/v$sbcore/sing-box-$sbcore-linux-arm64.tar.gz -o sing-box.tar.gz
-	curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64 -o cloudflared-linux
-	tar -xzvf sing-box.tar.gz
-	mv sing-box-$sbcore-linux-arm64 sing-box
-	;;
-	armv71 )
-	curl -L https://github.com/SagerNet/sing-box/releases/download/v$sbcore/sing-box-$sbcore-linux-armv7.tar.gz -o sing-box.tar.gz
-	curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm -o cloudflared-linux
-	tar -xzvf sing-box.tar.gz
-	mv sing-box-$sbcore-linux-armv7 sing-box
-	;;
-	* )
-	echo "当前架构 $(uname -m) 没有适配"
-	exit 1
-	;;
-esac
+if [ "$(grep -i PRETTY_NAME /etc/os-release | cut -d \" -f2 | awk '{print $1}')" == "Alpine" ]
+then
+    case "$(uname -m)" in
+        x86_64 | x64 | amd64 )
+        curl -L https://github.com/SagerNet/sing-box/releases/download/v$sbcore/sing-box-$sbcore-linux-amd64-musl.tar.gz -o sing-box.tar.gz
+        curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o cloudflared-linux
+        tar -xzvf sing-box.tar.gz
+        mv sing-box-$sbcore-linux-amd64-musl sing-box
+        ;;
+        i386 | i686 )
+        curl -L https://github.com/SagerNet/sing-box/releases/download/v$sbcore/sing-box-$sbcore-linux-386-musl.tar.gz -o sing-box.tar.gz
+        curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-386 -o cloudflared-linux
+        tar -xzvf sing-box.tar.gz
+        mv sing-box-$sbcore-linux-386-musl sing-box
+        ;;
+        armv8 | arm64 | aarch64 )
+        echo "arm64"
+        curl -L https://github.com/SagerNet/sing-box/releases/download/v$sbcore/sing-box-$sbcore-linux-arm64-musl.tar.gz -o sing-box.tar.gz
+        curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64 -o cloudflared-linux
+        tar -xzvf sing-box.tar.gz
+        mv sing-box-$sbcore-linux-arm64-musl sing-box
+        ;;
+        armv71 )
+        curl -L https://github.com/SagerNet/sing-box/releases/download/v$sbcore/sing-box-$sbcore-linux-armv7-musl.tar.gz -o sing-box.tar.gz
+        curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm -o cloudflared-linux
+        tar -xzvf sing-box.tar.gz
+        mv sing-box-$sbcore-linux-armv7-musl sing-box
+        ;;
+        * )
+        echo "当前架构 $(uname -m) 没有适配"
+        exit 1
+        ;;
+    esac
+else
+    case "$(uname -m)" in
+        x86_64 | x64 | amd64 )
+        curl -L https://github.com/SagerNet/sing-box/releases/download/v$sbcore/sing-box-$sbcore-linux-amd64.tar.gz -o sing-box.tar.gz
+        curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o cloudflared-linux
+        tar -xzvf sing-box.tar.gz
+        mv sing-box-$sbcore-linux-amd64 sing-box
+        ;;
+        i386 | i686 )
+        curl -L https://github.com/SagerNet/sing-box/releases/download/v$sbcore/sing-box-$sbcore-linux-386.tar.gz -o sing-box.tar.gz
+        curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-386 -o cloudflared-linux
+        tar -xzvf sing-box.tar.gz
+        mv sing-box-$sbcore-linux-386 sing-box
+        ;;
+        armv8 | arm64 | aarch64 )
+        echo "arm64"
+        curl -L https://github.com/SagerNet/sing-box/releases/download/v$sbcore/sing-box-$sbcore-linux-arm64.tar.gz -o sing-box.tar.gz
+        curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64 -o cloudflared-linux
+        tar -xzvf sing-box.tar.gz
+        mv sing-box-$sbcore-linux-arm64 sing-box
+        ;;
+        armv71 )
+        curl -L https://github.com/SagerNet/sing-box/releases/download/v$sbcore/sing-box-$sbcore-linux-armv7.tar.gz -o sing-box.tar.gz
+        curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm -o cloudflared-linux
+        tar -xzvf sing-box.tar.gz
+        mv sing-box-$sbcore-linux-armv7 sing-box
+        ;;
+        * )
+        echo "当前架构 $(uname -m) 没有适配"
+        exit 1
+        ;;
+    esac
+fi
 
 chmod +x cloudflared-linux sing-box/sing-box
 mv cloudflared-linux /opt/suoha/
